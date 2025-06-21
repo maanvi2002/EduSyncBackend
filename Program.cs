@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.ApplicationInsights.Extensibility;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -73,6 +74,8 @@ builder.Services.AddControllers(options =>
 });
 
 
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -114,6 +117,8 @@ builder.Services.AddSwaggerGen(c =>
     });
     c.SupportNonNullableReferenceTypes();
 });
+
+
 
 
 builder.Services.AddApplicationInsightsTelemetry(options =>

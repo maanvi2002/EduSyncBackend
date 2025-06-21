@@ -28,16 +28,10 @@ jobs:
       - name: Publish project
         run: dotnet publish EduSyncProject.csproj -c Release -o ./publish
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_77C01E4B9F514EA587E5D8357D4E0832 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_595075CD089D49D781BC99010AD06583 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8D2B5414E6A840C68A0A5AD22EAD0513 }}
-
       - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'edusync-api-backend'
           slot-name: 'Production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ./publish
