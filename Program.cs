@@ -17,6 +17,12 @@ var jwtSettingsSection = builder.Configuration.GetSection("JwtSettings");
 builder.Services.Configure<JwtSettings>(jwtSettingsSection);
 var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
 
+if (jwtSettings == null || jwtSettings.SecretKey == null || jwtSettings.Issuer == null || jwtSettings.Audience == null)
+{
+    throw new Exception("JWT settings are missing or incomplete in appsettings.json or environment variables.");
+}
+
+
 builder.Services.AddScoped<JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddSingleton<AzureBlobService>(sp =>
