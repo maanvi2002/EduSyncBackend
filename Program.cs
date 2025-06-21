@@ -137,7 +137,7 @@ try
     var app = builder.Build();
 
     // your existing pipeline
-    if (app.Environment.IsDevelopment())
+    if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Environment.IsProduction())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
